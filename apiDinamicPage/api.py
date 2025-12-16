@@ -1,8 +1,9 @@
 from rest_framework import viewsets, permissions, status
-from .models import Template, User, DataForm, Profile, QrdataForm, UserImage
-from .serializers import TemplateSerializer, UserSerializer, DataFormSerializer, RegisterSerializer, ProfileSerializer, MyTokenObtainPairSerializer,QrdataFormSerializer, ProfileImageSerializer, UserImageSerializer, UserImageCreateSerializer
+from .models import Template, User, DataForm, Profile, QrdataForm, UserImage, ApiUrl
+from .serializers import TemplateSerializer, UserSerializer, DataFormSerializer, RegisterSerializer, ProfileSerializer, MyTokenObtainPairSerializer,QrdataFormSerializer, ProfileImageSerializer, UserImageSerializer, UserImageCreateSerializer, ApiUrlSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from django.conf import settings
 
 class TemplateViewSet(viewsets.ModelViewSet):
     queryset = Template.objects.all()
@@ -323,3 +324,41 @@ class UserImageViewSet(viewsets.ModelViewSet):
                 {'error': f'Error interno del servidor: {str(e)}'}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
+class ApiUrlViewSet(viewsets.ModelViewSet):
+    queryset = ApiUrl.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = ApiUrlSerializer
+    
+    def list(self, request):
+        """
+        Devuelve un JSON con todas las URLs de la API en formato diccionario
+        """
+        # Obtener todas las URLs de la base de datos
+        api_urls = ApiUrl.objects.all()
+        
+        # Construir el diccionario de URLs
+        urls_dict = {}
+        for api_url in api_urls:
+            urls_dict[api_url.name] = api_url.url
+        
+        # Si no hay URLs en la base de datos, devolver URLs por defecto
+        if not urls_dict:
+            # Construir la URL base
+            request_scheme = request.scheme  # http o https
+            request_host = request.get_host()  # 127.0.0.1:8000 o dominio
+            
+            base_url = f"{request_scheme}://{request_host}/api/v1/"
+            
+            urls_dict = {
+                "template": f"{base_url}template/",
+                "user": f"{base_url}user/",
+                "dataform": f"{base_url}dataform/",
+                "profile": f"{base_url}profile/",
+                "register": f"{base_url}register/",
+                "token": f"{base_url}token/",
+                "qr": f"{base_url}qr/",
+                "userimage": f"{base_url}userimage/",
+            }
+        
+        return Response(urls_dict, status=status.HTTP_200_OK)

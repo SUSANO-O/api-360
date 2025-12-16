@@ -21,3 +21,5 @@ __pycache__/
 *.whl
 .venv/
 .cache/
+
+cd c:\Users\Andres\LOGIN-main; python -c "import requests; import json; r = requests.get('http://127.0.0.1:8000/api/v1/apiurls/'); print(json.dumps(r.json(), indent=2))"

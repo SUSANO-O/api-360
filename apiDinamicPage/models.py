@@ -101,3 +101,17 @@ class UserImage(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.title or 'Sin título'}"
+
+class ApiUrl(models.Model):
+    """Modelo simple para guardar URLs de la API"""
+    name = models.CharField(max_length=100, unique=True, help_text="Nombre de la URL (ej: template, user, etc.)")
+    url = models.CharField(max_length=500, help_text="URL completa de la API")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "apiDinamicPage_apiurl"
+        ordering = ['name']
+
+    def __str__(self):
+        return f"{self.name}: {self.url}"

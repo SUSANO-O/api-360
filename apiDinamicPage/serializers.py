@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Template, User, DataForm, Profile, QrdataForm, UserImage
+from .models import Template, User, DataForm, Profile, QrdataForm, UserImage, ApiUrl
 
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -218,3 +218,9 @@ class UserImageCreateSerializer(serializers.ModelSerializer):
             validated_data['file_size'] = file_size
         
         return super().create(validated_data)
+
+class ApiUrlSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ApiUrl
+        fields = ['id', 'name', 'url', 'created_at', 'updated_at']
+        read_only_fields = ('created_at', 'updated_at')
