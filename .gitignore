@@ -1,0 +1,23 @@
+# Python
+__pycache__
+*.py[cod]
+
+# Django
+db.sqlite3
+media/
+static/
+
+# Virtual environments
+venv
+env
+
+# Secrets
+.env
+
+
+.codegpt
+__pycache__/
+*.pyc
+*.whl
+.venv/
+.cache/

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión - Mi Aplicación</title>
+  <style>
+    /* Estilos generales para la página */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Estilos para el contenedor de autenticación */
+    .auth-container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* Título del formulario */
+    .auth-title {
+      text-align: center;
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    /* Estilos del formulario */
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Estilo para los campos de entrada (inputs) */
+    .auth-form input {
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .auth-form input:focus {
+      border-color: #0056b3;
+    }
+
+    /* Estilo para el botón de envío */
+    .auth-button {
+      padding: 12px;
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+
+    .auth-button:hover {
+      background-color: #003d80;
+    }
+
+    /* Estilo para los mensajes de error (opcional) */
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* Estilo para enlaces si se necesita registrar nuevo usuario */
+    .register-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .register-link a {
+      color: #0056b3;
+      text-decoration: none;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <h1 class="auth-title">Iniciar sesión</h1>
+
+    <form action="/signin/" method="post" class="auth-form">
+      <!-- En Django, asegúrate de que {{ form.as_p }} renderice los campos del formulario -->
+      {% csrf_token %}
+      
+        <!-- Campo de entrada para el correo electrónico -->
+        <input type="email" name="username" id="username" placeholder="Nombre de usuario" required>
+
+        <!-- Campo de entrada para la contraseña -->
+
+        <input type="password" name="password" id="password" placeholder="Contraseña" required >
+
+
+
+      <!-- Botón para enviar el formulario -->
+      <button type="submit" class="auth-button">Iniciar sesión</button>
+
+      <!-- Aquí puedes agregar un enlace para registro, si es necesario -->
+      <div class="register-link">
+        <p>¿No tienes cuenta? <a href="/signup/">Regístrate aquí</a></p>
+        <p>¿Olvidaste tu contraseña? <a href="/reset-password/">Cambiar contraseña</a></p>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
