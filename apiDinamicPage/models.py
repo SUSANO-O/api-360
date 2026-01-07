@@ -115,3 +115,19 @@ class ApiUrl(models.Model):
 
     def __str__(self):
         return f"{self.name}: {self.url}"
+
+class VCard(models.Model):
+    """Modelo para guardar tarjetas de presentación (vCard)"""
+    title = models.CharField(max_length=255, blank=True, null=True, help_text="Título de la tarjeta de presentación")
+    description = models.TextField(blank=True, null=True, help_text="Descripción de la tarjeta")
+    image_base64 = models.TextField(blank=True, null=True, help_text="Imagen en formato base64")
+    vcard_data = models.JSONField(default=dict, blank=True, null=True, help_text="Datos completos del vCard incluyendo información personal y diseño")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "apiDinamicPage_vcard"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.title or 'Sin título'} - {self.created_at}"

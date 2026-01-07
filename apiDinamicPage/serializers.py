@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Template, User, DataForm, Profile, QrdataForm, UserImage, ApiUrl
+from .models import Template, User, DataForm, Profile, QrdataForm, UserImage, ApiUrl, VCard
 
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -223,4 +223,10 @@ class ApiUrlSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApiUrl
         fields = ['id', 'name', 'url', 'created_at', 'updated_at']
+        read_only_fields = ('created_at', 'updated_at')
+
+class VCardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VCard
+        fields = ['id', 'title', 'description', 'image_base64', 'vcard_data', 'created_at', 'updated_at']
         read_only_fields = ('created_at', 'updated_at')

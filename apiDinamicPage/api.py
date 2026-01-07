@@ -1,6 +1,6 @@
 from rest_framework import viewsets, permissions, status
-from .models import Template, User, DataForm, Profile, QrdataForm, UserImage, ApiUrl
-from .serializers import TemplateSerializer, UserSerializer, DataFormSerializer, RegisterSerializer, ProfileSerializer, MyTokenObtainPairSerializer,QrdataFormSerializer, ProfileImageSerializer, UserImageSerializer, UserImageCreateSerializer, ApiUrlSerializer
+from .models import Template, User, DataForm, Profile, QrdataForm, UserImage, ApiUrl, VCard
+from .serializers import TemplateSerializer, UserSerializer, DataFormSerializer, RegisterSerializer, ProfileSerializer, MyTokenObtainPairSerializer,QrdataFormSerializer, ProfileImageSerializer, UserImageSerializer, UserImageCreateSerializer, ApiUrlSerializer, VCardSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.conf import settings
@@ -362,3 +362,8 @@ class ApiUrlViewSet(viewsets.ModelViewSet):
             }
         
         return Response(urls_dict, status=status.HTTP_200_OK)
+
+class VCardViewSet(viewsets.ModelViewSet):
+    queryset = VCard.objects.all()
+    permission_classes = [permissions.AllowAny]
+    serializer_class = VCardSerializer

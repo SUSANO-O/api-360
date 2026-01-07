@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Template, User, DataForm, Profile, QrdataForm, ApiUrl
+from .models import Template, User, DataForm, Profile, QrdataForm, ApiUrl, VCard
 admin.site.site_header = 'Dinamic Page Admin'
 admin.site.site_title = 'Dinamic Page Admin'
 admin.site.index_title = 'Dinamic Page Admin'
@@ -31,6 +31,11 @@ class ApiUrlAdmin(admin.ModelAdmin):
     search_fields = ('name', 'url')
     readonly_fields = ('created_at', 'updated_at')
 
+class VCardAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_at', 'updated_at')
+    search_fields = ('title', 'description')
+    readonly_fields = ('created_at', 'updated_at')
+
 
 admin.site.register(Template, TemplateAdmin)
 admin.site.register(User, UserAdmin)
@@ -38,6 +43,7 @@ admin.site.register(DataForm, DataFormAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(QrdataForm, QrCodeAdmin)
 admin.site.register(ApiUrl, ApiUrlAdmin)
+admin.site.register(VCard, VCardAdmin)
 # Compare this snippet from apiDinamicPage/views.py:
 # from django.shortcuts import render
 # from django.http import JsonResponse
